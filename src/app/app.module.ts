@@ -1,36 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
-import { FriendsComponent } from './component/friends/friends.component';
-import { RecipesComponent } from './component/recipes/recipes.component';
-import { LoginComponent } from './component/login/login.component';
-import { RecipeDetailComponent } from './component/recipes/recipe-detail/recipe-detail.component';
-import { RecipeListComponent } from './component/recipes/recipe-list/recipe-list.component';
-import { RecipeItemComponent } from './component/recipes/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './component/shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './component/shopping-list/shopping-edit/shopping-edit.component';
-import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared.module';
+import { CoreModule } from './core.module';
+import * as fromApp from './store/app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './component/auth/store/auth.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    FriendsComponent,
-    RecipesComponent,
-    LoginComponent,
-    RecipeDetailComponent,
-    RecipeListComponent,
-    RecipeItemComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule 
+    AppRoutingModule,
+    HttpClientModule,
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([AuthEffects]),
+    SharedModule,
+    CoreModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
