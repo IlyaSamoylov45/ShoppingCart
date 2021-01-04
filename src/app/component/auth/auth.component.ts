@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EmailValidator, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Login } from 'src/app/model/login.model';
-import { AuthService, AuthResponseData } from 'src/app/service/auth.service';
+import { AuthService } from 'src/app/service/auth.service';
 import * as fromApp from '../../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
 
@@ -37,7 +37,6 @@ export class AuthComponent implements OnInit, OnDestroy {
             return;
         }
         const login: Login = new Login(form.value.email, form.value.password);
-        let authObs: Observable<AuthResponseData>;
         if (this.isLoginMode) {
             this.store.dispatch(new AuthActions.LoginStart({ ...login }));
         } else {
